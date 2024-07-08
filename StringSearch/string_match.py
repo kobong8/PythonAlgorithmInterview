@@ -1,3 +1,4 @@
+# [1] brute force method
 def bf_match(txt: str, pat: str) -> int:
     pt = 0
     pp = 0
@@ -11,6 +12,12 @@ def bf_match(txt: str, pat: str) -> int:
             pp = 0
 
     return pt - pp if pp == len(pat) else -1
+
+# [2] Knuth-Morris-Pratt method 
+def kmp_match(txt: str, pat: str) -> int:
+    pt = 1
+    pp = 0
+    skip = [0] * (len(pat) + 1)
 
 
 if __name__ == "__main__":
