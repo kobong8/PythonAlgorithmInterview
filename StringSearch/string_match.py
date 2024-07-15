@@ -19,6 +19,13 @@ def kmp_match(txt: str, pat: str) -> int:
     pp = 0
     skip = [0] * (len(pat) + 1)
 
+    skip[pt] = 0
+    while pt != len(pat):
+        if pat[pt] == pat[pp]:
+            pt += 1
+            pp += 1
+            skip[pt] = pp 
+
 
 if __name__ == "__main__":
     s1 = "ADJNSABAISABCAJSDQNRMZPD"
