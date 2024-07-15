@@ -14,13 +14,14 @@ def bf_match(txt: str, pat: str) -> int:
     return pt - pp if pp == len(pat) else -1
 
 # [2] Knuth-Morris-Pratt(KMP) method 
+# TODO while 문이 2개가 돌아가니깐 연산 시간 확인 필요
 def kmp_match(txt: str, pat: str) -> int:
     pt = 1
     pp = 0
     skip = [0] * (len(pat) + 1)
 
     # KMP Table
-    skip[pt] = 0 #TODO 위에서 0으로 다 채웠는데 필요한건가?
+    skip[pt] = 0 # TODO 위에서 0으로 다 채웠는데 필요한건가?
     while pt != len(pat):
         if pat[pt] == pat[pp]:
             pt += 1
