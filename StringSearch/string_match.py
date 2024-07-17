@@ -1,5 +1,6 @@
 # [1] brute force method
 def bf_match(txt: str, pat: str) -> int:
+    print("Brute Force Method")
     pt = 0
     pp = 0
 
@@ -17,6 +18,7 @@ def bf_match(txt: str, pat: str) -> int:
 # TODO while 문이 2개가 돌아가니깐 연산 시간 확인 필요
 # TODO 문자열이 증가하니깐 연산 결과도출이 안됨
 def kmp_match(txt: str, pat: str) -> int:
+    print("Knuth-Morris-Pratt(KMP) Method")
     pt = 1
     pp = 0
     skip = [0] * (len(pat) + 1)
@@ -51,14 +53,16 @@ def kmp_match(txt: str, pat: str) -> int:
 
 # [3] Boyer-Moor Method
 def bm_match(txt: str, pat: str) -> int:
+    print("Boyer-Moor Method")
     skip = [None] * 256
 
     # 건너뛰기 표 만들기
     for pt in range(256):
         skip[pt] = len(pat)
     for pt in range(len(pat)):
-        skip[ord(pt)] = len(pat) - pt - 1
-    
+        skip[ord(pat[pt])] = len(pat) - pt - 1
+    # print(skip)
+
     # 검색하기
 
     return -1
@@ -79,6 +83,14 @@ if __name__ == "__main__":
 
     # [2] Test brute force method
     idx = kmp_match(s1, s2)
+
+    if idx == -1:
+        print("텍스트 안에 패턴이 존재하지 않습니다.")
+    else:
+        print(f"{idx+1}번째 문자가 일치합니다.")
+
+    # [3] Boyer-Moor Method
+    idx = bm_match(s1, s2)
 
     if idx == -1:
         print("텍스트 안에 패턴이 존재하지 않습니다.")
