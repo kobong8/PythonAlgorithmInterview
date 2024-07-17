@@ -15,13 +15,15 @@ def bf_match(txt: str, pat: str) -> int:
 
 # [2] Knuth-Morris-Pratt(KMP) method 
 # TODO while 문이 2개가 돌아가니깐 연산 시간 확인 필요
+# TODO 문자열이 증가하니깐 연산 결과도출이 안됨
 def kmp_match(txt: str, pat: str) -> int:
     pt = 1
     pp = 0
     skip = [0] * (len(pat) + 1)
 
     # KMP Table
-    skip[pt] = 0 # TODO 위에서 0으로 다 채웠는데 필요한건가?
+    # TODO 위에서 0으로 다 채웠는데 필요한건지?
+    # skip[pt] = 0 
     while pt != len(pat):
         if pat[pt] == pat[pp]:
             pt += 1
@@ -32,6 +34,7 @@ def kmp_match(txt: str, pat: str) -> int:
             skip[pt] = pp
         else:
             pp == skip[pp]
+    print(skip)
     
     pt = pp = 0
     while pt != len(txt) and pp != len(pat):
@@ -42,13 +45,15 @@ def kmp_match(txt: str, pat: str) -> int:
             pt += 1
         else:
             pp = skip[pp]
+    print(skip)
 
     return pt - pp if pp == len(pat) else -1
 
 
 if __name__ == "__main__":
     s1 = "ADJNSABAISABCAJSDQNRMZPD"
-    s2 = "ABC"
+    s2 = "ABCA"
+    # s2 = "ABCAJ"
 
     # [1] Test brute force method
     idx = bf_match(s1, s2)
