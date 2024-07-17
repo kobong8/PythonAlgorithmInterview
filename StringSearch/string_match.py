@@ -51,6 +51,15 @@ def kmp_match(txt: str, pat: str) -> int:
 
 # [3] Boyer-Moor Method
 def bm_match(txt: str, pat: str) -> int:
+    skip = [None] * 256
+
+    # 건너뛰기 표 만들기
+    for pt in range(256):
+        skip[pt] = len(pat)
+    for pt in range(len(pat)):
+        skip[ord(pt)] = len(pat) - pt - 1
+    
+    # 검색하기
 
     return -1
 
