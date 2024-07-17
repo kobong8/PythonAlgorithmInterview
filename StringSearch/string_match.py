@@ -49,6 +49,11 @@ def kmp_match(txt: str, pat: str) -> int:
 
     return pt - pp if pp == len(pat) else -1
 
+# [3] Boyer-Moor Method
+def bm_match(txt: str, pat: str) -> int:
+
+    return -1
+
 
 if __name__ == "__main__":
     s1 = "ADJNSABAISABCAJSDQNRMZPD"
