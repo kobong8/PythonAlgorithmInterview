@@ -20,6 +20,8 @@ if __name__ == "__main__":
     soln.reverseString(src_str)
     print(src_str)
 
+    # TypeError: 'str' object does not support item assignment
+    # string -> list -> "".join
     str_example = "A man, a plan, a canal: Panama"
     src_str = list(str_example)
     print(src_str)
