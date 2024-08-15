@@ -14,8 +14,16 @@ class Solution:
 if __name__ == "__main__":
     # list_str = ["H", "a", "n", "n", "a", "h"]
     list_str = ["h", "e", "l", "l", "o"]
-    print(list_str)
+    src_str = list_str
 
     soln = Solution()
-    soln.reverseString(list_str)
-    print(list_str)
+    soln.reverseString(src_str)
+    print(src_str)
+
+    str_example = "A man, a plan, a canal: Panama"
+    src_str = list(str_example)
+    print(src_str)
+
+    soln.reverseString(src_str)
+    print(str_example)
+    print("".join(src_str))
