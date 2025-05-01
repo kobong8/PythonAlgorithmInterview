@@ -1,5 +1,9 @@
+from util import timefn
+
+
 # %%
 class Solution:
+    @timefn
     def zero_sum_triplets_01(self, nums: list[int]) -> list[int]:
         # brute force
         nums.sort()
@@ -18,6 +22,17 @@ class Solution:
 
         return soln_list
 
+    @timefn
+    def zero_sum_triplets_02(self, nums: list[int]):
+        # brute force
+        nums.sort()
+        print("zero_sum_triplets_02")
+
+        zero_list: list[int] = []
+        soln_list: list[int] = []
+
+        return 0
+
 
 # %%
 if __name__ == "__main__":
@@ -25,3 +40,4 @@ if __name__ == "__main__":
 
     soln = Solution()
     print(soln.zero_sum_triplets_01(nums))
+    print(soln.zero_sum_triplets_02(nums))
