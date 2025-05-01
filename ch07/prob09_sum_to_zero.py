@@ -13,7 +13,8 @@ class Solution:
 
         cnt = 0
 
-        # TODO 종료 시점 확인 len(nums) - 2
+        # TODO 1. 종료 시점 확인 len(nums) - 2
+        # TODO 2. 중복된 값을 처리하는 방법
         for i in range(0, len(nums) - 2):
             for j in range(i + 1, len(nums) - 1):
                 for k in range(j + 1, len(nums)):
