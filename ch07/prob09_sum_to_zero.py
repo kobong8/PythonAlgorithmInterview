@@ -1,6 +1,6 @@
 # %%
 class Solution:
-    def zero_sum_triplets_01(self, nums: list[int]):
+    def zero_sum_triplets_01(self, nums: list[int]) -> list[int]:
         # brute force
         nums.sort()
 
