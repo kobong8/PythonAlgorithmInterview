@@ -9,31 +9,28 @@ class Solution:
         print("zero_sum_triplets - brute force")
         nums.sort()
 
-        zero_list: list[int] = []
         soln_list: list[int] = []
 
         cnt = 0
 
-        for i in range(0, len(nums)):
-            for j in range(i + 1, len(nums)):
+        # TODO 종료 시점 확인 len(nums) - 2
+        for i in range(0, len(nums) - 2):
+            for j in range(i + 1, len(nums) - 1):
                 for k in range(j + 1, len(nums)):
                     cnt += 1
-                    sum: int = nums[i] + nums[j] + nums[k]
-                    if sum == 0:
-                        zero_list = [nums[i], nums[j], nums[k]]
-                        if zero_list not in soln_list:
-                            soln_list.append(zero_list)
+                    if nums[i] + nums[j] + nums[k] == 0:
+                        if [nums[i], nums[j], nums[k]] not in soln_list:
+                            soln_list.append([nums[i], nums[j], nums[k]])
 
         print(f"cnt: {cnt}")
         return soln_list
 
     @timefn
-    def zero_sum_triplets_02(self, nums: list[int]):
+    def zero_sum_triplets_02(self, nums: list[int]) -> list[int]:
         # three points
         print("zero_sum_triplets - three points")
         nums.sort()
 
-        zero_list: list[int] = []
         soln_list: list[int] = []
 
         cnt = 0
@@ -49,12 +46,37 @@ class Solution:
                 elif sum > 0:
                     right -= 1
                 else:
-                    zero_list = [nums[i], nums[left], nums[right]]
-                    if zero_list not in soln_list:
-                        soln_list.append(zero_list)
+                    if [nums[i], nums[left], nums[right]] not in soln_list:
+                        soln_list.append([nums[i], nums[left], nums[right]])
 
         print(f"cnt: {cnt}")
         return soln_list
+
+    @timefn
+    def zero_sum_triplets_03(self, nums: list[int]) -> list[int]:
+        print("zero_sum_triplets - (soln) brute force")
+        results = []
+        nums.sort()
+
+        cnt = 0
+
+        # brute force n^3
+        for i in range(len(nums) - 2):
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue
+            for j in range(i + 1, len(nums) - 1):
+                if j > i + 1 and nums[j] == nums[j - 1]:
+                    continue
+                for k in range(j + 1, len(nums)):
+                    cnt += 1
+
+                    if k > j + 1 and nums[k] == nums[k - 1]:
+                        continue
+                    if nums[i] + nums[j] + nums[k] == 0:
+                        results.append([nums[i], nums[j], nums[k]])
+
+        print(f"cnt: {cnt}")
+        return results
 
 
 # %%
@@ -65,14 +87,21 @@ if __name__ == "__main__":
     print(soln.zero_sum_triplets_01(nums))
     print()
     print(soln.zero_sum_triplets_02(nums))
+    print()
+    print(soln.zero_sum_triplets_03(nums))
 
 # %%
 # zero_sum_triplets - brute force
 # cnt: 20
-# @timefn: zero_sum_triplets_01 took 0.0002810955047607422 seconds
+# @timefn: zero_sum_triplets_01 took 0.0002357959747314453 seconds
 # [[-1, -1, 2], [-1, 0, 1]]
 
 # zero_sum_triplets - three points
 # cnt: 15
-# @timefn: zero_sum_triplets_02 took 0.0001506805419921875 seconds
+# @timefn: zero_sum_triplets_02 took 6.651878356933594e-05 seconds
+# [[-1, -1, 2], [-1, 0, 1]]
+
+# zero_sum_triplets - (soln) brute force
+# cnt: 14
+# @timefn: zero_sum_triplets_03 took 3.504753112792969e-05 seconds
 # [[-1, -1, 2], [-1, 0, 1]]
