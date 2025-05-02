@@ -4,13 +4,12 @@ from util import timefn
 # %%
 class Solution:
     @timefn
-    def zero_sum_triplets_01(self, nums: list[int]) -> list[int]:
+    def zero_sum_triplets_01(self, nums: list[int]) -> list[list[int]]:
         # brute force
         print("zero_sum_triplets - brute force")
         nums.sort()
 
-        soln_list: list[int] = []
-
+        soln_list: list[list[int]] = []
         cnt = 0
 
         # TODO 1. 종료 시점 확인 len(nums) - 2
@@ -27,16 +26,15 @@ class Solution:
         return soln_list
 
     @timefn
-    def zero_sum_triplets_02(self, nums: list[int]) -> list[int]:
+    def zero_sum_triplets_02(self, nums: list[int]) -> list[list[int]]:
         # three points
         print("zero_sum_triplets - three points")
         nums.sort()
 
-        soln_list: list[int] = []
-
+        soln_list: list[list[int]] = []
         cnt = 0
 
-        for i in range(0, len(nums)):
+        for i in range(0, len(nums) - 2):
             left = i + 1
             right = len(nums) - 1
             for _ in range(i + 1, len(nums)):
@@ -54,11 +52,10 @@ class Solution:
         return soln_list
 
     @timefn
-    def zero_sum_triplets_03(self, nums: list[int]) -> list[int]:
+    def zero_sum_triplets_03(self, nums: list[int]) -> list[list[int]]:
         print("zero_sum_triplets - (soln) brute force")
         results = []
         nums.sort()
-
         cnt = 0
 
         # brute force n^3
@@ -84,6 +81,7 @@ class Solution:
         print("zero_sum_triplets - (soln) three points")
         results = []
         nums.sort()
+        cnt = 0
 
         for i in range(len(nums) - 2):
             # 중복된 값 건너뛰기
@@ -93,6 +91,7 @@ class Solution:
             # 간격을 좁혀가며 합 `sum` 계산
             left, right = i + 1, len(nums) - 1
             while left < right:
+                cnt += 1
                 sum = nums[i] + nums[left] + nums[right]
                 if sum < 0:
                     left += 1
@@ -102,6 +101,7 @@ class Solution:
                     # `sum = 0`인 경우이므로 정답 및 스킵 처리
                     results.append([nums[i], nums[left], nums[right]])
 
+                    # 중복 제거
                     while left < right and nums[left] == nums[left + 1]:
                         left += 1
                     while left < right and nums[right] == nums[right - 1]:
@@ -109,12 +109,14 @@ class Solution:
                     left += 1
                     right -= 1
 
+        print(f"cnt: {cnt}")
         return results
 
 
 # %%
 if __name__ == "__main__":
-    nums: list[int] = [-1, 0, 1, 2, -1, 4]
+    # nums: list[int] = [-2, -1, 0, 1, 1, 2, -1, 4]
+    nums: list[int] = [-1, 0, 1, -1, 0, 1]
 
     soln = Solution()
     print(soln.zero_sum_triplets_01(nums))
@@ -122,19 +124,5 @@ if __name__ == "__main__":
     print(soln.zero_sum_triplets_02(nums))
     print()
     print(soln.zero_sum_triplets_03(nums))
-
-# %%
-# zero_sum_triplets - brute force
-# cnt: 20
-# @timefn: zero_sum_triplets_01 took 0.0002357959747314453 seconds
-# [[-1, -1, 2], [-1, 0, 1]]
-
-# zero_sum_triplets - three points
-# cnt: 15
-# @timefn: zero_sum_triplets_02 took 6.651878356933594e-05 seconds
-# [[-1, -1, 2], [-1, 0, 1]]
-
-# zero_sum_triplets - (soln) brute force
-# cnt: 14
-# @timefn: zero_sum_triplets_03 took 3.504753112792969e-05 seconds
-# [[-1, -1, 2], [-1, 0, 1]]
+    print()
+    print(soln.zero_sum_triplets_04(nums))
